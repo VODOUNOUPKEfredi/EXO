@@ -33,10 +33,13 @@ class Enigme extends Obstacle {
 
   @override
   Future<void> affronter(Aventurier joueur) async {
-    String bonneReponse = "océan parcifique";
 
+    String bonneReponse = "océan parcifique";
     question = "Quel est le plus grand océan du Monde";
-    reponse = "ocean parcifique";
+    
+    String ?nom =stdin.readLineSync()!.trim().toLowerCase();
+    stdout.write(nom);
+    print("----------------------------");
     await Future.delayed(Duration(seconds: 1));
     print(" LA FORÊT MAUDITE");
     await Future.delayed(Duration(seconds: 2));
@@ -54,17 +57,17 @@ class Enigme extends Obstacle {
     while (joueur.vies > 0) {
       //bonne reponse
       stdout.write("votre reponse :");
-      String?reponse = stdin.readLineSync();
-      await Future.delayed(Duration(seconds: 1));
+      String? reponse = stdin.readLineSync()!.trim().toLowerCase();
+      //await Future.delayed(Duration(seconds: 1));
 
       if (reponse == bonneReponse) {
         print("Bonne reponse");
       } else {
         print("Mauvaise reponse.");
         joueur.perdeVie();
-        if (joueur.vies == 0) {
+       // if (joueur.vies == 0) {
           return;
-        }
+       // }
       }
     }
   }
@@ -76,7 +79,7 @@ class Piege extends Obstacle {
   @override
   Future<void> affronter(Aventurier joueur) async {
     bool piege = Random().nextBool();
-    print("chargement...");
+   
     await Future.delayed(Duration(seconds: 3));
     print("IL y a des piege sur le chemin ${joueur.nom}");
     print(" Oups des lianes vivantes tentent de vous attraper ${joueur.nom}");
@@ -97,7 +100,7 @@ class Gardiens extends Obstacle {
     print("Voulez -vous   (1)  negocier ou   (2) combattre ");
     await Future.delayed(Duration(seconds: 2));
     stdout.write("votre reponse :");
-    String ? choix = stdin.readLineSync();
+    String  choix = stdin.readLineSync()!.trim();
     ;
     bool combattre = Random().nextBool();
     print("reflechissez tres bien ");
@@ -132,7 +135,13 @@ class Gardiens extends Obstacle {
 }
 
 void main() async {
-  Aventurier gagnan = Aventurier("Fredi", 3);
+ /*String ? nom;
+ print("Entrer votre nom");
+  nom=stdin.readLineSync()!.trim().toLowerCase();
+  stdout.write(nom);
+  */
+  Aventurier gagnan = Aventurier("$nom", 3);
+  print("---------------------------------------");
   List<Obstacle> Obstacles = [
     Enigme("quelle est le plus grand océan du monde", "océan parcifique"),
     Piege(),
